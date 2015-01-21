@@ -4,16 +4,19 @@
   "description": "Harness for running the Official JSON Schema Tests",
   "main": "src/index.coffee",
   "files": [
+    "bin",
     "src",
+    "JSON-Schema-Test-Suite",
     "README.md"
   ],
   "dependencies": {
     "glob": "~3.2.6",
-    "testify": "^0.2.11"
+    "testify": "^0.3.0"
   },
   "devDependencies": {
     "is-my-json-valid": "^1.4.1",
     "jsck": "^0.2.4",
+    "json-gate": "^0.8.22",
     "tv4": "^1.1.5"
   },
   "repository": "git@github.com:pandastrike/json-schema-tests.git",

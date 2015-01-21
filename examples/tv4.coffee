@@ -4,12 +4,9 @@ module.exports =
 
   version: "draft4"
 
-  validator: (schema) ->
-    (document) ->
-      result = tv4.validateResult(document, schema)
-      {valid: result.valid}
-
-
+  validate: (schema, document) ->
+    result = tv4.validateResult(document, schema)
+    {valid: result.valid}
 
   ignores:
     "optional/format": true

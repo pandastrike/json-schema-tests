@@ -2,9 +2,8 @@ module.exports =
 
   version: "draft4"
 
-  validator: (schema) ->
-    (document) ->
-      {valid: true}
+  validate: (schema, document) ->
+    {valid: true}
 
   ignores:
     # Using the same ignores as JSCK for parity's sake

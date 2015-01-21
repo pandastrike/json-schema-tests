@@ -3,6 +3,7 @@ glob = require "glob"
 
 assert = require "assert"
 Testify = require "testify"
+Testify.options.stack = false
 
 module.exports = class SuiteRunner
 
@@ -22,7 +23,7 @@ module.exports = class SuiteRunner
       string = fs.readFileSync(file, "utf8")
       @suites[key] = require "../#{file}"
 
-  test: ({validator, attribute, test_number}) ->
+  test: ({validate, attribute, test_number}) ->
 
     Testify.test "JSON Schema: #{@version}", (context) =>
       if attribute
@@ -30,13 +31,12 @@ module.exports = class SuiteRunner
         if !attribute_suite
           throw new Error "No such attribute to test: '#{attribute}'"
         else
-          @run_attribute({validator, context, attribute, attribute_suite, test_number})
+          @run_attribute({validate, context, attribute, attribute_suite, test_number})
         if @ignores?[attribute]
           process.on "exit", =>
             console.log "Ignored these tests for #{@version}:", @ignores[attribute]
       else
-        for attribute, attribute_suite of @suites
-          @run_attribute({validator, context, attribute, attribute_suite, test_number})
+        @run_all({validate, context, @suites})
         if @ignores
           process.on "exit", =>
             console.log "Ignored these tests for #{@version}:"
@@ -46,26 +46,47 @@ module.exports = class SuiteRunner
               else
                 console.log "\t", "#{attribute}:", val
 
-  run_attribute: ({validator, context, attribute, attribute_suite, test_number}) ->
+  run_all: ({validate, context, suites}) ->
+    for attribute, attribute_suite of suites
+      context.test attribute, (context) =>
+        for suite, i in attribute_suite
+          unless @ignores?[attribute]?.some((item) => item == suite.description)
+            context.test suite.description, () =>
+
+              for document in suite.tests
+                unless @ignores?[attribute]?.some((item) => item == document.description)
+                  result = validate(suite.schema, document.data)
+                  assert.equal result.valid, document.valid,
+                    "Failed '#{document.description}'"
+
+
+  run_attribute: ({validate, context, attribute, attribute_suite, test_number}) ->
     context.test attribute, (context) =>
       if test_number
         if suite = attribute_suite[parseInt(test_number)]
-          @run_subsuite({validator, context, suite})
+          @run_subsuite({validate, context, suite})
         else
           console.log "Usage error: #{attribute} only has #{attribute_suite.length} tests"
           process.exit()
       else
         for suite, i in attribute_suite
           unless @ignores?[attribute]?.some((item) => item == suite.description)
-            @run_subsuite({attribute, validator, context, suite})
+            @run_subsuite({attribute, validate, context, suite})
 
-  run_subsuite: ({attribute, validator, context, suite}) ->
+  run_subsuite: ({attribute, validate, context, suite}) ->
     context.test suite.description, (context) =>
-      v = validator(suite.schema)
 
       for document in suite.tests
         unless @ignores?[attribute]?.some((item) => item == document.description)
           context.test document.description, =>
-            result = v(document.data)
-            assert.equal result.valid, document.valid
+            result = validate(suite.schema, document.data)
+            if result.valid
+              x = "valid"
+            else
+              x = "invalid"
+            assert.equal result.valid, document.valid,
+              "Result was #{x}"
+
+
+
 
