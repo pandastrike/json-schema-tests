@@ -6,8 +6,6 @@ unless validator_path
   console.log "You must supply the path to your validator adapter"
   process.exit()
 
-
-
 suite = require "../src/index"
 
 suite(validator_path, attribute, test_number)

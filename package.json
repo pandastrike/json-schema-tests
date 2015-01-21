@@ -12,8 +12,9 @@
     "testify": "^0.2.11"
   },
   "devDependencies": {
-    "testify": "~0.2.11",
-    "jsck": "^0.2.4"
+    "is-my-json-valid": "^1.4.1",
+    "jsck": "^0.2.4",
+    "testify": "~0.2.11"
   },
   "repository": "git@github.com:pandastrike/json-schema-tests.git",
   "author": "Matthew King <matthew@pandastrike.com>",

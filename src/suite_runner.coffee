@@ -66,6 +66,6 @@ module.exports = class SuiteRunner
       for document in suite.tests
         unless @ignores?[attribute]?.some((item) => item == document.description)
           context.test document.description, =>
-            result = v.validate(document.data)
+            result = v(document.data)
             assert.equal result.valid, document.valid
 
