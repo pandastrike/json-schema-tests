@@ -1,8 +1,9 @@
 {
   "name": "json-schema-tests",
   "version": "0.1.0",
-  "description": "Harness for running the Official JSON Schema Tests",
+  "description": "Tool for running the Official JSON Schema Test Suite",
   "main": "src/index.coffee",
+  "bin": "bin/json-schema-tests",
   "files": [
     "bin",
     "src",

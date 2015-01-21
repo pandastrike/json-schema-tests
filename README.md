@@ -2,6 +2,8 @@
 
 A node.js tool for testing JSON Schema validators against the [JSON Schema Test Suite](https://github.com/json-schema/JSON-Schema-Test-Suite).
 
+The npm package includes a copy of the JSON Schema Test Suite files from the time of publishing.  The present version is [1.1.2-28-gaabcb34](https://github.com/json-schema/JSON-Schema-Test-Suite/tree/aabcb3427745ade7a0b4d49ff016ad7eda8b898b).
+
 You must have CoffeeScript installed globally to use json-schema-tests
 
     npm install -g coffee-script
@@ -9,6 +11,7 @@ You must have CoffeeScript installed globally to use json-schema-tests
 If you install json-schema-tests globally, you can use it like this:
 
     json-schema-tests path/to/validator_adapter.coffee # or .js
+
 
 The "validator adapter" must export three fields, `version`, `validator`,
 and `ignores`.
@@ -21,7 +24,7 @@ and `ignores`.
   See [examples/jsck.coffee](examples/jsck.coffee) for the format.
 
 To demonstrate a baseline, I've included a sycophantic validator in the examples.
-It always says the document is valid.  The output for `examples/yes.coffee`
+It always says the document is valid.  The output for [examples/yes.coffee](examples/yes.coffee)
 looks like this:
 
 ![glorious](examples/yes.png)
