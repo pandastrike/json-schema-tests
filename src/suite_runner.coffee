@@ -1,10 +1,12 @@
 fs = require "fs"
+path = require "path"
 glob = require "glob"
 
 assert = require "assert"
 Testify = require "testify"
 Testify.options.stack = false
 
+test_path = path.resolve(__dirname, "..", "JSON-Schema-Test-Suite/tests")
 module.exports = class SuiteRunner
 
   constructor: ({@version, @ignores}) ->
@@ -12,16 +14,17 @@ module.exports = class SuiteRunner
     @read()
 
   read: ->
-    files = glob.sync "JSON-Schema-Test-Suite/tests/#{@version}/**/*.json"
-    l = "JSON-Schema-Test-Suite/tests/#{@version}/".length
+    files = glob.sync "#{test_path}/#{@version}/**/*.json"
+    prefix_length = "#{test_path}/#{@version}/".length
+
 
     for file in files
-      # drop the .json
-      key = file.slice(l, -5)
+      # Get the attribute name by dropping the prefix and the .json
+      key = file.slice(prefix_length, -5)
 
       continue if @ignores?[key] == true
       string = fs.readFileSync(file, "utf8")
-      @suites[key] = require "../#{file}"
+      @suites[key] = require file
 
   test: ({validate, attribute, test_number}) ->
 
