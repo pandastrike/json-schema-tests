@@ -1,12 +1,21 @@
 #!/usr/bin/env coffee
 
+path = require "path"
+
 [_node, _script, validator_path, attribute, test_number] = process.argv
 
 unless validator_path
-  console.log "You must supply the path to your validator adapter"
+  console.error "You must supply the path to your validator adapter"
   process.exit()
 
-suite = require "../src/index"
 
-suite(validator_path, attribute, test_number)
+{version, validate, ignores} = require path.resolve(validator_path)
+
+unless version? && validate?
+  console.error "You must specify a version and a validate function"
+  process.exit()
+
+
+suite = require "../src/index"
+suite {version, validate, attribute, test_number, ignores}
 

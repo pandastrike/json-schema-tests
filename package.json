@@ -1,6 +1,6 @@
 {
   "name": "json-schema-tests",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Tool for running the Official JSON Schema Test Suite",
   "main": "src/index.coffee",
   "bin": "bin/json-schema-tests",
