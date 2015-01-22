@@ -19,9 +19,6 @@ module.exports =
       "two supplementary Unicode code points is long enough"
     ]
 
-    # Not supported because of the potential performance implications
-    uniqueItems: true
-
     # Impossible to test when using output of JSON.parse
     "optional/zeroTerminatedFloats": true
     
