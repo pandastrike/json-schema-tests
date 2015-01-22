@@ -9,8 +9,6 @@ module.exports =
     {valid: v(document)}
 
   ignores:
-    # Using the same ignores as JSCK for parity's sake
-
     # Doubtful value for the majority of use cases.
     minLength: [
       "one supplementary Unicode code point is not long enough"
