@@ -4,10 +4,6 @@ A node.js tool for testing JSON Schema validators against the [JSON Schema Test 
 
 The npm package includes a copy of the JSON Schema Test Suite files from the time of publishing.  The present version is [1.1.2-28-gaabcb34](https://github.com/json-schema/JSON-Schema-Test-Suite/tree/aabcb3427745ade7a0b4d49ff016ad7eda8b898b).
 
-You must have CoffeeScript installed globally to use json-schema-tests
-
-    npm install -g coffee-script
-
 If you install json-schema-tests globally, you can use it like this:
 
     json-schema-tests path/to/validator_adapter.coffee # or .js
