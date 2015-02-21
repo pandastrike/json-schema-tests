@@ -15,9 +15,11 @@
     "testify": "^0.3.0"
   },
   "devDependencies": {
+    "coffee-script": "^1.9.1",
     "is-my-json-valid": "^2.0.2",
     "jsck": "^0.2.4",
     "json-gate": "^0.8.22",
+    "themis": "^1.1.5",
     "tv4": "^1.1.5"
   },
   "repository": "git@github.com:pandastrike/json-schema-tests.git",

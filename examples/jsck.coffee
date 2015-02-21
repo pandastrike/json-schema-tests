@@ -1,4 +1,4 @@
-JSCK = require("jsck/src/index")
+JSCK = require("jsck/lib/index")
 
 module.exports =
 
